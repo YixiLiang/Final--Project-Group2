@@ -2,7 +2,7 @@
 FinalProject_ML2
 
 Dataset: 
-#### https://www.kaggle.com/datasets/quadeer15sh/image-super-resolution-from-unsplash/code
+#### https://www.kaggle.com/datasets/quadeer15sh/image-super-resolution-from-unsplash
 
 source: 
 #### https://github.com/xinntao/ESRGAN
