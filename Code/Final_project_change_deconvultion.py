@@ -122,7 +122,7 @@ l17 = add([l16, l3])
 decoded = Conv2DTranspose(3, (3, 3), padding='same', activation='relu')(l17)
 
 autoencoder = Model(input_img, decoded)
-autoencoder = tf.keras.models.load_model('autoencoder_change_deconvolution_1200.h5')
+# autoencoder = tf.keras.models.load_model('autoencoder_change_deconvolution_1200.h5')
 autoencoder.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
 
 autoencoder.summary()
