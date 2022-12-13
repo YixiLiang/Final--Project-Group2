@@ -3,8 +3,7 @@ FinalProject_ML2
 
 Access to our datasets for code using: https://drive.google.com/drive/folders/1OLzv_DeIB1M8jAXp8ncMdJNbvC6eJYIl?usp=sharing
 
-Dataset Source: 
-#### https://www.kaggle.com/datasets/quadeer15sh/image-super-resolution-from-unsplash
+Dataset Source: https://www.kaggle.com/datasets/quadeer15sh/image-super-resolution-from-unsplash
 
 source: 
 #### https://github.com/xinntao/ESRGAN
