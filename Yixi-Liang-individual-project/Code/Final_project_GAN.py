@@ -126,7 +126,7 @@ hr_shape = hr_imgs[0].shape
 with strategy.scope():
 # lr image -> hr image
     gen_model = build_generator(lr_shape)
-    gen_model = tf.keras.models.load_model(cur_file + '/save_epoch_128.h5')
+#     gen_model = tf.keras.models.load_model(cur_file + '/save_epoch_128.h5')
 # validate lr and hr
     disc = build_discriminator(hr_shape)
     disc.compile(optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001,beta_1=0.9),
@@ -153,19 +153,19 @@ for i in tqdm(range(int(len(lr_imgs)/batch_size))):
 test = load_img(os.path.join(lowres_folder, '3_6.jpg'))
 np.expand_dims(test,axis=0).shape
 
-pred = gen_model.predict(np.expand_dims(test,axis=0))
-pred = np.squeeze(pred)
-new_pred = pred/255
-new_pred = np.maximum(new_pred, 0)
-new_pred = np.minimum(new_pred, 255)
-cv.imwrite(f'test_img/test_{100}.jpg', pred)
+# pred = gen_model.predict(np.expand_dims(test,axis=0))
+# pred = np.squeeze(pred)
+# new_pred = pred/255
+# new_pred = np.maximum(new_pred, 0)
+# new_pred = np.minimum(new_pred, 255)
+# cv.imwrite(f'test_img/test_{100}.jpg', pred)
 
-fig, axs = plt.subplots(1 , 2, figsize=(10,4))
-axs[0].imshow(test)
-axs[0].set_title('Low Resolution Image')
-axs[1].imshow(new_pred)
-axs[1].set_title('Predicted High Resolution Image')
-plt.show()
+# fig, axs = plt.subplots(1 , 2, figsize=(10,4))
+# axs[0].imshow(test)
+# axs[0].set_title('Low Resolution Image')
+# axs[1].imshow(new_pred)
+# axs[1].set_title('Predicted High Resolution Image')
+# plt.show()
 
 with strategy.scope():
     epochs = 10
@@ -206,24 +206,24 @@ with strategy.scope():
         d_loss = np.sum(d_losses, axis=0) / len(d_losses)
 
         print(f'epochs :: {e} d_loss :: {d_loss} g_loss :: {g_loss}')
-        if (e + 1) % 2 == 0:
+        if (e + 1) % 5 == 0:
             gen_model.save('save_epoch_128.h5')
             print('Model Saved')
 
-        # if (e+1) % 1 == 0:
-        #     pred = gen_model.predict(np.expand_dims(test,axis=0))
-        #     pred = np.squeeze(pred)
-        #     new_pred = pred/255
-        #     new_pred = np.maximum(new_pred, 0)
-        #     new_pred = np.minimum(new_pred, 255)
-        #     cv.imwrite(f'test_img/test_{e}.jpg', pred)
-        #
-        #     plt.subplot(1,2,1)
-        #     plt.imshow(new_pred)
-        #     plt.axis('off')
-        #     plt.subplot(1,2,2)
-        #     plt.imshow(test)
-        #     plt.axis('off')
-        #     plt.show()
+        if (e+1) % 5 == 0:
+            pred = gen_model.predict(np.expand_dims(test,axis=0))
+            pred = np.squeeze(pred)
+            new_pred = pred/255
+            new_pred = np.maximum(new_pred, 0)
+            new_pred = np.minimum(new_pred, 255)
+            cv.imwrite(f'test_img/test_{e}.jpg', pred)
+        
+            plt.subplot(1,2,1)
+            plt.imshow(new_pred)
+            plt.axis('off')
+            plt.subplot(1,2,2)
+            plt.imshow(test)
+            plt.axis('off')
+            plt.show()
 
 print('Finish')
